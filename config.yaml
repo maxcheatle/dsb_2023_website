@@ -67,8 +67,8 @@ params:
     links:
       - name: Home
         url: '#'
-      - name: Blogs
-        url: blogs
+      - name: Portfolio
+        url: portfolio
 #      - name: Generic Blog
 #        url: blogs/ipsum
 #      - name: Elements
@@ -79,22 +79,22 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
+      - image: lbs.jpg
         subtitle: Ipsum Dolor Sit Amet
         title: Project 1
-        url: blogs/aliquam
+        url: portfolio/aliquam
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
         title: Project 2
-        url: blogs/tempus
+        url: portfolio/tempus
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Project 3
-        url: blogs/magna
+        url: portfolio/magna
       - image: pic04.jpg
         subtitle: Nisl Sed Aliquam
         title: Project 4
-        url: blogs/ipsum
+        url: portfolio/ipsum
   #    - image: pic05.jpg
   #      subtitle: Ipsum Dolor Sit Amet
   #      title: Consequat
