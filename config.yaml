@@ -6,9 +6,9 @@ googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: Get Started
+    buttonText: CV
     subtitle: |-
-      This website serves as my portfolio for all things data science.
+      This website serves as my portfolio for all things data science. Take a look at my CV, or some of work
     title: Hi, my name is Max
   blog: {}
   contact:
@@ -33,7 +33,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Maxim Cheatle, 2023
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -103,14 +103,14 @@ params:
   #      subtitle: Feugiat Amet Tempus
   #      title: Etiam
   #      url: blogs/ipsum
-  two:
-    buttonText: Get Started
-    enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
-    url: blogs
+#  two:
+#    buttonText: Get Started
+#    enable: yes
+#    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
+#      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
+#      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
+#      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
+#      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
+#      amet pharetra et feugiat tempus."
+#    title: Massa libero
+#    url: blogs
