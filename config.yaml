@@ -69,6 +69,8 @@ params:
         url: '#'
       - name: Portfolio
         url: blogs
+      - name: CV
+        url: cv
 #      - name: Generic Blog
 #        url: blogs/ipsum
 #      - name: Elements
@@ -79,14 +81,14 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: lbs.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Project 1
-        url: blogs/aliquam
-      - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Project 2
-        url: blogs/tempus
+      - image: h1_cover.png
+        subtitle: An exploration of NYC Flights, and Hollywood movie datasets
+        title: Basic Data Manipulation
+        url: blogs/homework1_web
+      - image: h2_cover.png
+        subtitle: Data Visualisation, with data from US mass shootings, credit card fraud, and gloal energy production
+        title: Data Visualisation and Functions
+        url: blogs/homework2_web
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Project 3
