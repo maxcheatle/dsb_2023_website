@@ -11,9 +11,6 @@ keywords: ""
 slug: risk_return # slug is the shorthand URL address... no spaces plz
 title: Risk-Return of DJIA stocks
 ---
-  
-
-
 
 
 
@@ -140,7 +137,7 @@ myStocks_returns_monthly %>%
   NULL
 ```
 
-<img src="/portfolio/risk_return_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" />
+<img src="/blogs/risk_return_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" />
 
 
-<img src="/portfolio/risk_return_files/figure-html/risk_return-1.png" width="648" style="display: block; margin: auto;" />
+<img src="/blogs/risk_return_files/figure-html/risk_return-1.png" width="648" style="display: block; margin: auto;" />
