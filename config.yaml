@@ -85,7 +85,7 @@ params:
         subtitle: An exploration of NYC Flights, and Hollywood movie datasets
         title: Basic Data Manipulation
         url: blogs/homework1_web
-      - image: h2_cover.png
+      - image: h1_cover.png
         subtitle: Data Visualisation, with data from US mass shootings, credit card fraud, and gloal energy production
         title: Data Visualisation and Functions
         url: blogs/homework2_web
