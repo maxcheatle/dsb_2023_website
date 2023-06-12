@@ -93,7 +93,7 @@ flights %>%
 
 # Combined dataframe for plotting
 
-pct_cancelled_month <- flights %>% 
+flights %>% 
   group_by(month) %>%
   summarise(count_total = n(), count_cancelled = sum(is.na(dep_time)), pct_cancelled = (count_cancelled/count_total)*100) %>%
   ggplot(aes(x=month, y=pct_cancelled)) +
@@ -102,9 +102,6 @@ pct_cancelled_month <- flights %>%
   scale_x_continuous(limit = c(1,12), breaks = 1:12) +
   labs(title = "Percentage of flights cancelled", subtitle = "NYC departures in 2013", x = "Month", y = "% Cancelled") +
   NULL
-
-print(pct_cancelled_month)
-
 ```
 
 > -   Lowest cancellation month: 10 (October), 0.82%
@@ -530,7 +527,7 @@ cancellations %>%
   
   # Now let's plot it. Trying to replicate the above plot as accurately as possible. 
 
-  ggplot(aes(x=month, y=count, fill = carrier)) +
+  ggplot(aes(x=month, y=count)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = count), vjust = 1.5, size = 2, color = "white") + 
   facet_grid(row = vars(name), col = vars(origin)) +
@@ -541,5 +538,140 @@ cancellations %>%
 # To explain the data organisation:
 # - First we group by month, carrier, and origin so that our counting of cancellation is executed under the appropriate conditions.
 # - We then need to order the months correctly, to preserve chronology.
+```
+
+## Problem 10: On your own -- Hollywood Age Gap
+
+```{r}
+
+age_gaps <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-02-14/age_gaps.csv')
+
+head(age_gaps)
+
+# First checking the distribution of age_difference to get an overview of the variable of interest
+
+age_gaps %>% 
+  ggplot(aes(x=age_difference)) +
+  geom_density() +
+  labs(title = "Distribution of age differences in movie love interests", y = "Density", x = "Age Difference (Years)") +
+  theme_light() +
+  NULL
+
+# Let's see the summary statistics too
+
+age_gaps %>%
+  select(age_difference) %>% 
+  summary()
+  
+```
+
+> Age difference disitribution is positively skewed, with a minimum of 0 and maximum of 52. The mean is 10.42 years.
+
+```{r}
+
+# To explore how many of these love interests violate the half plus seven rule, we first need to check if the actor_1_age column is always larger than the actor_2_age column
+
+age_gaps %>% 
+  select(actor_1_age, actor_2_age) %>% 
+  mutate(positive_delta = actor_1_age - actor_2_age) %>%
+  mutate(positive_delta = case_when(
+    positive_delta >= 0 ~ "T",
+    TRUE ~ "F"
+  )) %>% 
+  group_by(positive_delta) %>% 
+  summarise(n())
+  
+# The data is already nice a tidy for our use! Let's see how many violate the half plus seven now...
+
+age_gaps %>% 
+  mutate(half_plus_seven = (actor_1_age/2)+7) %>% 
+  mutate(half_plus_seven = case_when(
+    actor_2_age < half_plus_seven ~ 'FAIL',
+    TRUE ~ "PASS"
+  )) %>% 
+  group_by(half_plus_seven) %>% 
+  summarise(n())
+```
+
+> The half plus seven rule is violated in 326 of the movie love interests in our dataset. Those ones probably didn't last beyond the scope of the movie!
+
+```{r}
+
+# Now we have an overview of movie love interests, which movies had the most love interests squeezed into their runtime?
+
+age_gaps %>% 
+  group_by(movie_name, release_year) %>% # I also grouped by release year, just in case there are repeated movie names
+  summarise(love_interests = n()) %>% 
+  arrange(desc(love_interests))
+
+# Out of interest, let's plot this in a density plot
+
+age_gaps %>% 
+  group_by(movie_name, release_year) %>%
+  summarise(love_interests = n()) %>% 
+  arrange(desc(love_interests)) %>% 
+  ggplot(aes(x=love_interests)) +
+  geom_histogram(binwidth = 1) +
+  labs(title = "Number of love interests per movie", x = 'Love Interests', y = "Count") +
+  theme_light() +
+  NULL
+```
+
+> The movie 'Love Actually' had the most love interests, with 7. Appropriately named.
+
+```{r}
+
+# Now let's check which actors/actresses are popular in the movie relationship market. We need a single list of all the protagonists first.
+
+long_names <- data.frame(c(age_gaps$actor_1_name, age_gaps$actor_2_name))
+
+colnames(long_names) <- "names"
+
+# Now I count for the frequency of each name
+
+long_names %>%
+  group_by(names) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+> Keanu Reeves and Adam Sandler, popular! Kiera Knightly the most popular woman.
+
+```{r}
+
+# It's always good to check trends over time. Let's have a look
+
+age_gaps %>% 
+  group_by(release_year) %>% 
+  summarise(mean_diff = mean(age_difference), median_diff = median(age_difference)) %>%
+  select(release_year, mean_diff, median_diff) %>% 
+  pivot_longer(cols = c("mean_diff", 'median_diff'), names_to = "average", values_to = "value") %>% 
+  
+# Have to long the data for ggplot() to perform properly
+
+  ggplot(aes(x=release_year, y=value, color=average)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_smooth(method = loess) +
+  facet_wrap(~ average) +
+  theme_light()
+  
+```
+
+> Age differences in relationships seem to have been trending downwards over the years, both in mean and median terms. However, recent years seem to have returned to some much larger age differences than seen in the past 20 years or so.
+
+```{r}
+
+# Let's take a look at same gender love interests in Hollywood
+
+age_gaps %>% 
+  select(release_year, character_1_gender, character_2_gender) %>% 
+  mutate(gender_match = case_when(
+    character_1_gender == character_2_gender ~ "TRUE",
+    TRUE ~ "FALSE"
+  )) %>% 
+  group_by(gender_match) %>% 
+  summarise(n())
 
 ```
+
+> Only 23 of the 1155 movie love interests are the same gender. Let's hope for more in the future.
