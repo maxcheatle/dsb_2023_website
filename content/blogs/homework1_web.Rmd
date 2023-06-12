@@ -541,4 +541,5 @@ cancellations %>%
 # To explain the data organisation:
 # - First we group by month, carrier, and origin so that our counting of cancellation is executed under the appropriate conditions.
 # - We then need to order the months correctly, to preserve chronology.
+
 ```
