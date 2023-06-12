@@ -530,7 +530,7 @@ cancellations %>%
   
   # Now let's plot it. Trying to replicate the above plot as accurately as possible. 
 
-  ggplot(aes(x=month, y=count)) +
+  ggplot(aes(x=month, y=count, fill = carrier)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = count), vjust = 1.5, size = 2, color = "white") + 
   facet_grid(row = vars(name), col = vars(origin)) +
