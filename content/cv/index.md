@@ -6,7 +6,6 @@ date: "2023-05-01"
 draft: false
 keywords: ""
 slug: cv # slug is the shorthand URL address... no spaces plz
-title: Max Cheatle's CV 
 ---
 
 # Maxim Cheatle

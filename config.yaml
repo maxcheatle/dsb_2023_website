@@ -23,7 +23,7 @@ params:
         title: Email
     enable: yes
     phone:
-      - phone: +(44)7792004883
+      - phone: +(44)123456789
         title: Phone
   custom_css: []
   custom_js: []
