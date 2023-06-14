@@ -93,10 +93,10 @@ params:
         subtitle: Connecting large databases to R for analysis, and webscraping public websites
         title: Databases and Web Scraping
         url: blogs/homework3
-      - image: spices.jpg
-        subtitle: Nisl Sed Aliquam
-        title: Project 4
-        url: blogs/homework3
+      - image: h4_cover.png
+        subtitle: Machine Learning on Hollywood Dataset, using R 
+        title: Machine Learning with R
+        url: blogs/homework4
   #    - image: pic05.jpg
   #      subtitle: Ipsum Dolor Sit Amet
   #      title: Consequat
