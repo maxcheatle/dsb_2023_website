@@ -9,7 +9,7 @@ image: h1_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg
 
 keywords: ""
 slug: homework1_web # slug is the shorthand URL address... no spaces plz
-title: Introductory Data Maniplation
+title: Introductory Data Manipulation
 ---
 
 ```{r}
