@@ -2,7 +2,7 @@
 categories:  
 - ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
 - ""
-date: "2021-09-30"
+date: "2023-05-02"
 description: Data Visualisation, with data from US mass shootings, credit card fraud, and gloal energy production  # the title that will show up once someone gets to this page
 draft: false
 image: h2_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
