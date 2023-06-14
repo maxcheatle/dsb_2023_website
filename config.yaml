@@ -84,19 +84,19 @@ params:
       - image: h1_cover.png
         subtitle: An exploration of NYC Flights, and Hollywood movie datasets
         title: Basic Data Manipulation
-        url: blogs/homework1
+        url: blogs/homework1_web
       - image: h2_cover.png
         subtitle: Data Visualisation, with data from US mass shootings, credit card fraud, and gloal energy production
         title: Data Visualisation and Functions
-        url: blogs/homework2
+        url: blogs/homework2_web
       - image: h3_cover.png
         subtitle: Connecting large databases to R for analysis, and webscraping public websites
         title: Databases and Web Scraping
         url: blogs/homework3
-      - image: pic04.jpg
+      - image: spices.jpg
         subtitle: Nisl Sed Aliquam
         title: Project 4
-        url: blogs/ipsum
+        url: blogs/homework3
   #    - image: pic05.jpg
   #      subtitle: Ipsum Dolor Sit Amet
   #      title: Consequat
