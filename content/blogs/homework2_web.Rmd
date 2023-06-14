@@ -954,13 +954,3 @@ Specific questions:
       
     country_plots("USA")
     ```
-
-# Details
-
--   Who did you collaborate with: NA
--   Approximately how much time did you spend on this problem set: 6 hrs
--   What, if anything, gave you the most trouble: Getting the right tables for the function without creating a mess of manipulation within the function
-
-**Please seek out help when you need it,** and remember the [15-minute rule](https://mam2022.netlify.app/syllabus/#the-15-minute-rule){target="_blank"}. You know enough R (and have enough examples of code from class and your readings) to be able to do this. If you get stuck, ask for help from others, post a question on Slack-- and remember that I am here to help too!
-
-> As a true test to yourself, do you understand the code you submitted and are you able to explain it to someone else?

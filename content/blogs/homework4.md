@@ -704,15 +704,3 @@ print(count_data)
 print(confusion_matrix_plot)
 
 ```
-
-The Logistic Regression and Random Forest models exhibit similar performance, with the Logistic Regression model correctly predicting the "Fail" category 50 times and the "Pass" category 71 times, while the Random Forest model accurately predicts the "Fail" category 118 times and the "Pass" category 46 times. Both models show higher accuracy in predicting the "Fail" category compared to the "Pass" category, although the Logistic Regression model demonstrates a more balanced accuracy across both categories.
-
-The Tree-based Model and XGBoost demonstrate comparable accuracy, with the Tree-based Model accurately predicting the "Fail" category 116 times and the "Pass" category 49 times, and XGBoost correctly predicting the "Fail" category 106 times and the "Pass" category 56 times. These models showcase a relatively balanced performance in predicting both categories.
-
-In contrast, the KNN model has a higher accuracy in identifying films that fail the Bechdel test, with 155 correct predictions, but a lower accuracy in predicting films that pass the test, with 125 correct predictions.
-
-# Details
-
--   Who did you collaborate with: NA
--   Approximately how much time did you spend on this problem set: 4hrs
--   What, if anything, gave you the most trouble: Model comparison was difficult, had to consult ChatGPT

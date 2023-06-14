@@ -783,19 +783,3 @@ all_consulting_jobs <- map_df(url, scrape_jobs)
 
 write.csv(all_consulting_jobs, file.path("~/Library/CloudStorage/OneDrive-LondonBusinessSchool/Electives/E628 Data Science/dsb2023_mcheatle/data", "all_consulting_jobs.csv"))
 ```
-
-# Create a shiny app - OPTIONAL
-
-We have already worked with the data on electricity production and usage, GDP/capita and CO2/capita since 1990. You have to create a simple Shiny app, where a user chooses a country from a drop down list and a time interval between 1990 and 2020 and shiny outputs the following
-
-```{r echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "electricity-shiny.png"), error = FALSE)
-```
-
-You can use chatGPT to get the basic layout of Shiny app, but you need to adjust the code it gives you. Ask chatGPT to create the Shiny app using the `gapminder` data and make up similar requests for the inputs/outpus you are thinking of deploying.
-
-# Details
-
--   Who did you collaborate with: NA
--   Approximately how much time did you spend on this problem set: 6h
--   What, if anything, gave you the most trouble: Web scraping was really difficult to get started with, but once I got going it was fine
