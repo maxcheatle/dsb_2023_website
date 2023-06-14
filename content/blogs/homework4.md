@@ -2,13 +2,13 @@
 categories:  
 - ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
 - ""
-date: "2024-05-04"
+date: "2023-05-04"
 description: Machine Learning on Hollywood Dataset, using R  # the title that will show up once someone gets to this page
 draft: false
 image: h4_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 
 keywords: ""
-slug: homework4_web # slug is the shorthand URL address... no spaces plz
+slug: homework4 # slug is the shorthand URL address... no spaces plz
 title: Machine Learning
 ---
 
