@@ -6,4 +6,4 @@ slug: blogs
 title: Portfolio
 ---
 
-Here, you can find some of my work. Primarily using R, with a little bit of SQL here and there, I'm primarily trying to show off my data analytics skills by deep diving some topics that I'm interested in.
+Here, you can find some of my work. Primarily using R, with a little bit of SQL here and there, I'm trying to show off my data analytics skills by deep diving some topics that I'm interested in.
