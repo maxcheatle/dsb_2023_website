@@ -6,7 +6,7 @@ googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: CV
+    buttonText: See More
     subtitle: |-
       This website serves as my portfolio for all things data science. Take a look at my CV, or some of work
     title: Hi, my name is Max

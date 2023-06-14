@@ -4,8 +4,6 @@ categories:
 - ""
 date: "2023-05-01"
 draft: false
-image: h1_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
-
 keywords: ""
 slug: cv # slug is the shorthand URL address... no spaces plz
 title: Max Cheatle's CV 
@@ -22,71 +20,48 @@ Data Analyst with Experience in Big Tech.
 
 ## About Me
 
-Standing on the shoulders of giants
+I am an Economic Geography graduate from the London School of Economics and Political Science. I am a former Business Analysis Intern at Amazon, and am currently looking for some high-impact data-driven work experience.
 
-### Professional Experienc 
+I am passionate about data-driven decision making, and increasing accessibility of key data points to non-technical users. In my free time, you can find me either on the golf course, or getting a haircut.
 
-Laws of motion, gravitation, minting coins, disliking [Robert Hooke](http://en.wikipedia.org/wiki/Robert_Hooke)
+### Professional Experience
 
+`2022`
+__Amazon, UK__
+
+- *Role:* Business Analyst Intern
+- *Department:* Amazon Logistics
+- *Team:* EU, On Road Productivity Improvement
+
+`2021`
+__Flymble, UK__
+
+- *Role:* Operations Management Intern
+- *Company:* Tech Startup
 
 ## Education
 
-`1654-1660`
-__The King's School, Grantham.__
+`2022-2023`
+__London Business School.__
 
-`June 1661 - now`
-__Trinity College, Cambridge__
+- *Course:* Master's in Management
+- *Awards:* Merit Scholarship
+- *Classification:* Pending
+- *Elective Modules:* Data Science, Supply Chain Management, Product Management, Managing Digital Orgs
 
-- Sizar
+`2019-2022`
+__London School of Economics and Political Science__
 
-`1667 - death`
-__Trinity College, Cambridge__
+- *Course:* BSc Geography with Economics
+- *Classification:* First Class Honours
 
-- Fellow
+## Leadership Experience
 
+`2021-2022`
+President, *LSE Bacchus Wine Society*, London, UK
 
-
-## Leadership Experienc 
-
-`2012`
-President, *Royal Society*, London, UK
-
-Associate, *French Academy of Science*, Paris, France
-
-
-
-## Additional Information
-
-<!-- A list is also available [online](http://scholar.google.co.uk/citations?user=LTOTl0YAAAAJ) -->
-
-### Journals
-
-`1669`
-Newton Sir I, De analysi per æquationes numero terminorum infinitas. 
-
-`1669`
-Lectiones opticæ.
-
-etc. etc. etc.
-
-### Patents
-
-`2012`
-Infinitesimal calculus for solutions to physics problems, [SMBC](http://www.techdirt.com/articles/20121011/09312820678/if-patents-had-been-around-time-newton.shtml) patent 001
-
-
-## Occupation
-
-`1600`
-__Royal Mint__, London
-
-- Warden
-- Minted coins
-
-`1600`
-__Lucasian professor of Mathematics__, Cambridge University
-
-
+`2020-2021`
+Treasurer, *LSE Bacchus Wine Society*, London, UK
 
 <!-- ### Footer
 
