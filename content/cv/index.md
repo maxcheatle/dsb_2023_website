@@ -9,14 +9,14 @@ slug: cv # slug is the shorthand URL address... no spaces plz
 title: Max Cheatle's CV 
 ---
 
-# Isaac Newton
-Data Analyst with Experience in Big Tech.
+# Maxim Cheatle
+
+Data Analyst with Experience in Big Tech
 
 <div id="webaddress">
 <a href="maxim.cheatle@gmail.com">maxim.cheatle@gmail.com</a>
 | <a href="https://maxcheatle.netlify.app/">My Portfolio</a>
 </div>
-
 
 ## About Me
 
