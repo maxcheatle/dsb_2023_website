@@ -1,0 +1,360 @@
+---
+title: 'Homework 3: Databases, web scraping, and a basic Shiny app'
+author: "Max Cheatle"
+date: "2023-06-14"
+output:
+  word_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+
+
+# Money in UK politics
+
+## Open a connection to the database
+
+The database made available by Simon Willison is an `SQLite` database
+
+
+```r
+sky_westminster <- DBI::dbConnect(
+  drv = RSQLite::SQLite(),
+  dbname = here::here("data", "sky-westminster-files.db")
+)
+```
+
+How many tables does the database have?
+
+
+```r
+DBI::dbListTables(sky_westminster)
+```
+
+```
+## [1] "appg_donations"  "appgs"           "member_appgs"    "members"        
+## [5] "parties"         "party_donations" "payments"
+```
+
+## Which MP has received the most amount of money?
+
+
+```r
+# First I am setting up the tables as database objects, so that I can manipulate them as dataframes
+
+payments_db <- dplyr::tbl(sky_westminster, "payments")
+members_db <- dplyr::tbl(sky_westminster, "members")
+
+# Checking outputs.... looks good
+
+#view(payments_db)
+#view(members_db)
+
+# We could jump straight to a join here, but I'll summarise on payments first to keep it easier to follow
+
+id_payments <- payments_db %>% 
+  
+  # Grouping by member_id for summation
+  group_by(member_id) %>% 
+  
+  # Summing the value of all payments to each member_id
+  summarise(total_recieved = sum(value))
+  
+# Now I want to join to the members table, where payments_db$member_id = members_db$id
+
+member_payments <- left_join(id_payments, members_db, by = c("member_id" = "id"))
+
+# Now let's take that table to see who's getting the most cash
+
+member_payments %>% 
+  select(member_id, name, total_recieved) %>% 
+  arrange(desc(total_recieved))
+```
+
+```
+## Warning: Missing values are always removed in SQL aggregation functions.
+## Use `na.rm = TRUE` to silence this warning
+## This warning is displayed once every 8 hours.
+```
+
+```
+## # Source:     SQL [?? x 3]
+## # Database:   sqlite 3.39.2 [/Users/maxcheatle/Library/CloudStorage/OneDrive-LondonBusinessSchool/Electives/E628 Data Science/dsb_2023_website/data/sky-westminster-files.db]
+## # Ordered by: desc(total_recieved)
+##    member_id name             total_recieved
+##    <chr>     <chr>                     <dbl>
+##  1 m8        Theresa May            2809765.
+##  2 m1508     Sir Geoffrey Cox       2191387.
+##  3 m1423     Boris Johnson          1282402 
+##  4 m4514     Keir Starmer            799936.
+##  5 m1211     Andrew Mitchell         769373.
+##  6 m3958     Fiona Bruce             712321.
+##  7 m14       John Redwood            692438.
+##  8 m4483     Rishi Sunak             546043 
+##  9 m4097     Liz Truss               538678.
+## 10 m188      Ed Davey                441681.
+## # ℹ more rows
+```
+
+-   Looks like Theresa May is a favorite for donors!
+
+## Any `entity` that accounts for more than 5% of all donations?
+
+
+```r
+# Let's find out which entity is splashing big cash
+
+# First let me find the total amount of donations in our payments_db dataframe
+
+total_donos <- payments_db %>% 
+  summarise(total_donos = sum(value)) %>% 
+  pull(total_donos)
+
+# Then do the same, but on an entity-by-entity basis
+
+entity_donos <- payments_db %>% 
+  group_by(entity) %>% 
+  summarise(entity_donos = sum(value))
+
+# Finally, a simple caluclation to work out the percentages
+
+entity_donos %>% 
+  mutate(pct_donos = entity_donos/total_donos*100) %>% 
+  arrange(desc(pct_donos)) 
+```
+
+```
+## # Source:     SQL [?? x 3]
+## # Database:   sqlite 3.39.2 [/Users/maxcheatle/Library/CloudStorage/OneDrive-LondonBusinessSchool/Electives/E628 Data Science/dsb_2023_website/data/sky-westminster-files.db]
+## # Ordered by: desc(pct_donos)
+##    entity                                entity_donos pct_donos
+##    <chr>                                        <dbl>     <dbl>
+##  1 Withers LLP                               1812732.     5.25 
+##  2 Fiona Bruce and Co LLP                     711749.     2.06 
+##  3 Charles Stanley                            674821.     1.95 
+##  4 Unite                                      636313.     1.84 
+##  5 Cambridge Speaker Series                   408200      1.18 
+##  6 GMB Union                                  397738.     1.15 
+##  7 MPM Connect                                345217      1.00 
+##  8 Centerview Partners LLP                    277724.     0.805
+##  9 Council of Insurance Agents & Brokers      276130      0.800
+## 10 Hindustan Times                            261652.     0.758
+## # ℹ more rows
+```
+
+-   Withers LLP's donations account for 5.3% of total donations!
+
+## Do `entity` donors give to a single party or not?
+
+
+```r
+# First let's get a list of the distinct entities and count them
+
+# Saving the value for use later
+total_entities <- payments_db %>% 
+  distinct(entity) %>% 
+  summarise(entities = n()) %>% 
+  pull(entities)
+
+total_entities
+```
+
+```
+## [1] 2213
+```
+
+```r
+# Now let's find out who only donates to one party
+
+entity_parties <- payments_db %>% 
+  
+  # Joining payments and members, since members has party_id which we need
+  left_join(members_db, by = c("member_id" = "id")) %>% 
+  select(entity, party_id) %>% 
+  arrange(desc(entity)) %>% 
+  
+  # Now selecting the distinct entity and party_id rows
+  distinct(entity, party_id) %>% 
+  
+  # Grouping by entity for incoming calculation
+  group_by(entity) %>% 
+  
+  # Counting the number of parties that each entity donates to
+  summarise(parties_dono = n()) %>% 
+  
+  # Converting the number of parties donated to, to a categorical single/multiple variable
+   mutate(parties_dono = case_when(
+    parties_dono > 1 ~ "Multiple",
+    TRUE ~ "Single"
+  )) %>% 
+  
+  # Grouping by our new categorical variable
+  group_by(parties_dono) %>% 
+  
+  # And counting the respective instances of single/multiple donors
+  summarise(count = n())
+
+ # Now presenting the answers
+
+entity_parties %>% 
+  
+  # Creating a pct column, using the total_entities saved from the start of this chunk
+  mutate(pct_multiple = as.numeric(count)/total_entities*100)
+```
+
+```
+## Warning: ORDER BY is ignored in subqueries without LIMIT
+## ℹ Do you need to move arrange() later in the pipeline or use window_order() instead?
+```
+
+```
+## # Source:     SQL [2 x 3]
+## # Database:   sqlite 3.39.2 [/Users/maxcheatle/Library/CloudStorage/OneDrive-LondonBusinessSchool/Electives/E628 Data Science/dsb_2023_website/data/sky-westminster-files.db]
+## # Ordered by: desc(entity)
+##   parties_dono count pct_multiple
+##   <chr>        <int>        <dbl>
+## 1 Multiple       177         8.00
+## 2 Single        2036        92.0
+```
+
+-   There are 2213 distinct donor entities, of which only 8% (177) donate to multiple parties
+
+## Which party has raised the greatest amount of money in each of the years 2020-2022?
+
+
+```r
+# knitr::include_graphics(here::here("images", "total_donations_table.png"), error = FALSE)
+
+# First creating tables as databse objects
+
+parties_db <- dplyr::tbl(sky_westminster, "parties")
+
+# Now gathering the necessary data
+
+yearly_payments <-
+  
+  payments_db %>% 
+    
+    # Opted to use sql() here, as I'm fluent in SQL and couldn't find a reliable way to do this using dplyr. I found a working method, but it then causes issues with the upcoming joins
+    mutate(year = as.integer(sql("SUBSTR(date, -4)"))) %>% 
+    filter(year >= 2020) %>% 
+
+    # We now need the join with the members table where the party_id is stored
+    left_join(members_db, by = c("member_id" = "id")) %>% 
+  
+    # Again, just reducing to the necessary cols  
+    select(year, member_id, value, party_id) %>% 
+   
+    # Left joining to parties_db, which has the party names
+    left_join(parties_db, by = c("party_id" = "id")) %>% 
+    
+    # Grouping by year and party name for sum
+    group_by(year, name) %>%
+    summarise(total_year_donatations = sum(value)) %>%
+    
+    # Now ungrouping to find total per year and calculate percentage
+    ungroup(name) %>%
+    mutate(prop = total_year_donatations / sum(total_year_donatations) * 100)
+
+yearly_payments
+```
+
+```
+## `summarise()` has grouped output by "year". You can override using the
+## `.groups` argument.
+```
+
+```
+## # Source:   SQL [?? x 4]
+## # Database: sqlite 3.39.2 [/Users/maxcheatle/Library/CloudStorage/OneDrive-LondonBusinessSchool/Electives/E628 Data Science/dsb_2023_website/data/sky-westminster-files.db]
+## # Groups:   year
+##     year name                      total_year_donatations    prop
+##    <int> <chr>                                      <dbl>   <dbl>
+##  1  2020 Alba Party                                 1320   0.0125
+##  2  2020 Conservative                            6035344. 57.1   
+##  3  2020 Democratic Unionist Party                  5715.  0.0540
+##  4  2020 Green Party                                9500   0.0898
+##  5  2020 Independent                              230103.  2.18  
+##  6  2020 Labour                                  3615844. 34.2   
+##  7  2020 Liberal Democrats                        537694   5.08  
+##  8  2020 Plaid Cymru                               23072   0.218 
+##  9  2020 Scottish National Party                  108599.  1.03  
+## 10  2020 Sinn Féin                                  1911   0.0181
+## # ℹ more rows
+```
+
+```r
+# My numbers here are different, but I really can't understand why. I also noticed that some parties don't appear every year in the screenshot attached - perhaps this is where I'm going wrong. I've also iteratively consulted ChatGPT and it seems not be getting any different numbers.   
+```
+
+... and then, based on this data, plot the following graph.
+
+
+```r
+# knitr::include_graphics(here::here("images", "total_donations_graph.png"), error = FALSE)
+
+yearly_payments %>% 
+  
+    # Now plotting, making sure to reorder our fill
+    ggplot(aes(y = total_year_donatations, x = year, fill = fct_reorder(name, -total_year_donatations))) +
+  
+    # position = "dodge" to prevent stacking
+    geom_bar(stat = "identity", position = "dodge") +
+  
+    # Aesthetics
+    theme_minimal() +
+    labs(title = "Conservatives have captured the majority of political donations", subtitle = "Donations to public parties, 2020-2022", x = NULL, y = NULL, fill = "Party")
+```
+
+```
+## `summarise()` has grouped output by "year". You can override using the
+## `.groups` argument.
+```
+
+<img src="homework3_files/figure-html/unnamed-chunk-8-1.png" width="80%" />
+
+This uses the default ggplot colour pallete, as I dont want you to worry about using the [official colours for each party](https://en.wikipedia.org/wiki/Wikipedia:Index_of_United_Kingdom_political_parties_meta_attributes). However, I would like you to ensure the parties are sorted according to total donations and not alphabetically. You may even want to remove some of the smaller parties that hardly register on the graph. Would facetting help you?
+
+Finally, when you are done working with the databse, make sure you close the connection, or disconnect from the database.
+
+
+```r
+dbDisconnect(sky_westminster)
+```
+
+# Anonymised Covid patient data from the CDC
+
+## Obtain the data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

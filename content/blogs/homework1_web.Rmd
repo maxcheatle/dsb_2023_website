@@ -8,7 +8,7 @@ draft: false
 image: h1_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 
 keywords: ""
-slug: homework1_web # slug is the shorthand URL address... no spaces plz
+slug: homework1 # slug is the shorthand URL address... no spaces plz
 title: Introductory Data Maniplation
 ---
 

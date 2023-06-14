@@ -8,7 +8,7 @@ draft: false
 image: h2_cover.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 
 keywords: ""
-slug: homework2_web # slug is the shorthand URL address... no spaces plz
+slug: homework2 # slug is the shorthand URL address... no spaces plz
 title: Data Visualisation and Functions
 ---
 
@@ -380,7 +380,7 @@ card_fraud %>%
   summarise(total_trans = n(), fraud_trans = sum(is_fraud == 1), pct_fraud = round(fraud_trans/total_trans*100,2))
 ```
 
--   How much money (in US$ terms) are fraudulent transactions costing the company? Generate a table that summarizes the total amount of legitimate and fraudulent transactions per year and calculate the % of fraudulent transactions, in US$ terms.
+-   How much money (in US\$ terms) are fraudulent transactions costing the company? Generate a table that summarizes the total amount of legitimate and fraudulent transactions per year and calculate the % of fraudulent transactions, in US\$ terms.
 
 ```{r}
 
@@ -961,6 +961,6 @@ Specific questions:
 -   Approximately how much time did you spend on this problem set: 6 hrs
 -   What, if anything, gave you the most trouble: Getting the right tables for the function without creating a mess of manipulation within the function
 
-**Please seek out help when you need it,** and remember the [15-minute rule](https://mam2022.netlify.app/syllabus/#the-15-minute-rule){target="\_blank"}. You know enough R (and have enough examples of code from class and your readings) to be able to do this. If you get stuck, ask for help from others, post a question on Slack-- and remember that I am here to help too!
+**Please seek out help when you need it,** and remember the [15-minute rule](https://mam2022.netlify.app/syllabus/#the-15-minute-rule){target="_blank"}. You know enough R (and have enough examples of code from class and your readings) to be able to do this. If you get stuck, ask for help from others, post a question on Slack-- and remember that I am here to help too!
 
 > As a true test to yourself, do you understand the code you submitted and are you able to explain it to someone else?
